@@ -23,9 +23,10 @@ requires:
   LWP::UserAgent: 0
   MIME::Base64: 0
   Moose: 0
+  Throwable: 0
   URI::Escape: 0
   methods: 0
   perl: "\x05\n\x01"
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.02
