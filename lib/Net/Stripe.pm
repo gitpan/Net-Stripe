@@ -17,7 +17,7 @@ use Net::Stripe::Customer;
 use Net::Stripe::Subscription;
 use Net::Stripe::Error;
 
-our $VERSION = '0.03';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -101,8 +101,16 @@ Charges: {
 
     method refund_charge {
         my $id = shift || die "A charge ID is required";;
+        my $amount = shift;
         $id = $id->id if ref($id);
-        return $self->_post("charges/$id/refund");
+        
+        if($amount) {
+            $amount = "?amount=$amount";
+        } else {
+            $amount = '';
+        }
+        
+        return $self->_post("charges/$id/refund" . $amount);
     }
 
     method get_charges {

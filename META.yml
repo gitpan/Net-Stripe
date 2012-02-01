@@ -3,10 +3,11 @@ abstract: 'API client for Stripe.com'
 author:
   - 'Luke Closs'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.62
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.62
 distribution_type: module
+dynamic_config: 1
 generated_by: 'Module::Install version 1.01'
 license: perl
 meta-spec:
@@ -18,16 +19,18 @@ no_index:
     - inc
     - t
 requires:
+  DateTime: 0
   HTTP::Request::Common: 0
   JSON: 0
   LWP::Protocol::https: 0
   LWP::UserAgent: 0
   MIME::Base64: 0
   Moose: 0
+  Test::Exception: 0
   Throwable: 0
   URI::Escape: 0
   methods: 0
   perl: "\x05\n\x01"
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.03
+version: 0.05
