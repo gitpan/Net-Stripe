@@ -3,36 +3,48 @@ abstract: 'API client for Stripe.com'
 author:
   - 'Luke Closs'
 build_requires:
-  ExtUtils::MakeMaker: 6.59
+  DateTime: '0'
+  DateTime::Duration: '0'
+  Test::Exception: '0'
+  Test::More: '0'
+  strict: '0'
+  warnings: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.59
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
+  ExtUtils::MakeMaker: '6.30'
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Net-Stripe
-no_index:
-  directory:
-    - inc
-    - t
 requires:
-  DateTime: 0
-  HTTP::Request::Common: 0
-  JSON: 0
-  LWP::Protocol::https: 0
-  LWP::UserAgent: 0
-  MIME::Base64: 0
-  Moose: 2.0602
-  MooseX::Clone: 0
-  Test::Exception: 0
-  Throwable: 0
-  URI::Escape: 0
-  methods: 0
-  namespace::clean: 0
-  perl: "\x05\n\x01"
+  HTTP::Request::Common: '0'
+  JSON: '0'
+  LWP::UserAgent: '0'
+  MIME::Base64: '0'
+  Moose: '0'
+  Moose::Util::TypeConstraints: '0'
+  MooseX::Clone: '0'
+  Throwable: '0'
+  URI::Escape: '0'
+  methods: '0'
+  namespace::clean: '0'
+  overload: '0'
 resources:
-  license: http://dev.perl.org/licenses/
-version: 0.08
+  bugtracker: https://github.com/lukec/stripe-perl/issues
+  homepage: https://stripe.com/docs
+  repository: git://github.com/lukec/stripe-perl.git
+version: '0.09'
+x_contributors:
+  - 'Andrew Solomon <andrew@illywhacker.net>'
+  - 'Brian Collins <bricollins@gmail.com>'
+  - 'Devin M. Certas <devin@nacredata.com>'
+  - 'Dimitar Petrov <mitakaa@gmail.com>'
+  - 'Dylan Reinhold <dylan@gasdasoftware.com>'
+  - 'Jonathan "Duke" Leto <jonathan@leto.net>'
+  - 'Luke Closs <me@luk.ec>'
+  - 'Olaf Alders <olaf@wundersolutions.com>'
+  - 'Rusty Conover <rusty@luckydinosaur.com>'
+  - 'Sachin Sebastian <sachinjsk@users.noreply.github.com>'
+  - 'Tom Eliaz <tom@tomeliaz.com>'

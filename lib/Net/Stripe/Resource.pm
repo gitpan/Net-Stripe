@@ -9,18 +9,39 @@ around BUILDARGS => sub {
 
     # Break out the JSON::XS::Boolean values into 1/0
     for my $field (keys %args) {
-        next unless ref($args{$field}) eq 'JSON::XS::Boolean';
-        $args{$field} = $args{$field} ? 1 : 0;
+        if (ref($args{$field}) =~ /^(JSON::XS::Boolean|JSON::PP::Boolean)$/) {
+            $args{$field} = $args{$field} ? 1 : 0;
+        }
     }
 
-    for my $f (qw/card active_card/) {
+    for my $f (qw/card default_card/) {
         next unless $args{$f};
         next unless ref($args{$f}) eq 'HASH';
         $args{$f} = Net::Stripe::Card->new($args{$f});
     }
+
+    if (my $s = $args{subscriptions}) {
+        if (ref($s) eq 'HASH') {
+            if (defined($s->{data}) && ref($s->{data}) eq 'ARRAY') {
+                $s->{data} = [map { Net::Stripe::Subscription->new($_) } @{$s->{data}}];
+            }
+            $args{subscriptions} = Net::Stripe::SubscriptionList->new($s);
+        }
+    }
+
     if (my $s = $args{subscription}) {
         if (ref($s) eq 'HASH') {
             $args{subscription} = Net::Stripe::Subscription->new($s);
+        }
+    }
+    if (my $s = $args{coupon}) {
+        if (ref($s) eq 'HASH') {
+            $args{coupon} = Net::Stripe::Coupon->new($s);
+        }
+    }
+    if (my $s = $args{discount}) {
+        if (ref($s) eq 'HASH') {
+            $args{discount} = Net::Stripe::Discount->new($s);
         }
     }
     if (my $p = $args{plan}) {
@@ -32,6 +53,16 @@ around BUILDARGS => sub {
     $class->$orig(%args);
 };
 
+method form_fields_for_metadata {
+    my $metadata = $self->metadata();
+    my @metadata = ();
+    while( my($k,$v) = each(%$metadata) ) {
+      push @metadata, 'metadata['.$k.']';
+      push @metadata, $v;
+    }
+    return @metadata;
+}
+
 method fields_for {
     my $for = shift;
     return unless $self->can($for);
@@ -42,3 +73,9 @@ method fields_for {
 }
 
 1;
+
+__END__
+
+=pod
+
+=cut

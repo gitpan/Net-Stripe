@@ -14,84 +14,21 @@ use Net::Stripe::Plan;
 use Net::Stripe::Coupon;
 use Net::Stripe::Charge;
 use Net::Stripe::Customer;
+use Net::Stripe::Discount;
 use Net::Stripe::Subscription;
+use Net::Stripe::SubscriptionList;
 use Net::Stripe::Error;
+use Net::Stripe::BalanceTransaction;
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
-=head1 NAME
 
-Net::Stripe - API client for Stripe.com
+has 'debug'         => (is => 'rw', isa => 'Bool',   default    => 0);
+has 'debug_network' => (is => 'rw', isa => 'Bool',   default    => 0);
+has 'api_key'       => (is => 'ro', isa => 'Str',    required   => 1);
+has 'api_base'      => (is => 'ro', isa => 'Str',    lazy_build => 1);
+has 'ua'            => (is => 'ro', isa => 'Object', lazy_build => 1);
 
-=head1 SYNOPSIS
-
- my $stripe     = Net::Stripe->new(api_key = > $API_KEY);
- my $card_token = 'a token';
- my $charge = $stripe->post_charge(  # Net::Stripe::Charge
-     amount      => 12500,
-     currency    => 'usd',
-     card        => $card_token,
-     description => 'YAPC Registration',
- );
- print "Charge was not paid!\n" unless $charge->paid;
- my $card = $charge->card;           # Net::Stripe::Card
-
- # look up a charge by id
- my $same_charge = $stripe->get_charge($charge->id);
-
- # ... and the api mirrors https://stripe.com/docs/api
- # Charges: post_charge() get_charge() refund_charge() get_charges()
- # Customer: post_customer() 
-
-=head1 DESCRIPTION
-
-This module is a wrapper around the Stripe.com HTTP API.  Methods are 
-generally named after the HTTP method and the object name.
-
-This method returns Moose objects for responses from the API.
-
-=head1 METHODS
-
-=head2 API Object
-
-=head3 new PARAMHASH
-
-This creates a new stripe api object.  The following parameters are accepted:
-
-=over
-
-=item api_key
-
-This is required. You get this from your Stripe Account settings.
-
-=item debug
-
-You can set this to true to see extra debug info.
-
-=back
- 
-=cut
-
-has 'debug'       => (is => 'rw', isa => 'Bool', default => 0);
-has 'api_key'     => (is => 'ro', isa => 'Str',    required   => 1);
-has 'api_base'    => (is => 'ro', isa => 'Str',    lazy_build => 1);
-has 'ua'          => (is => 'ro', isa => 'Object', lazy_build => 1);
-
-=head2 Charges
-
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 post_charge( PARAMHASH | OBJECT )
-
-=head3 get_charge( CHARGE_ID )
-
-=head3 refund_charge( CHARGE_ID )
-
-=head3 get_charges( PARAMHASH )
-
-=cut
 
 Charges: {
     method post_charge {
@@ -101,12 +38,12 @@ Charges: {
     }
 
     method get_charge {
-        my $id = shift || die "A charge ID is required";;
+        my $id = shift || die "A charge ID is required";
         return $self->_get("charges/$id");
     }
 
     method refund_charge {
-        my $id = shift || die "A charge ID is required";;
+        my $id = shift || die "A charge ID is required";
         my $amount = shift;
         $id = $id->id if ref($id);
         
@@ -123,23 +60,17 @@ Charges: {
         my %args = @_;
         $self->_get_collections('charges', %args);
     }
+    
+    
 }
 
-=head2 Customers
+BalanceTransactions: {
+  method get_balance_transaction {
+    my $id = shift || die "A transaction ID is required";
+    return $self->_get("balance/history/$id");
+  }
+}
 
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 post_customer( PARAMHASH | OBJECT )
-
-=head3 get_customer( CUSTOMER_ID )
-
-=head3 delete_customer( CUSTOMER_ID )
-
-=head3 get_customers( PARAMHASH )
-
-=cut
 
 Customers: {
     method post_customer {
@@ -151,6 +82,19 @@ Customers: {
 
         my $customer = Net::Stripe::Customer->new(@_);
         return $self->_post('customers', $customer);
+    }
+
+    # adds a subscription, keeping any existing subscriptions unmodified
+    method post_customer_subscription {
+        my $customer_id = shift || die 'post_customer_subscription() requires a customer_id';
+        die 'post_customer_subscription() requires a param hash' unless @_;
+        $self->_post("customers/$customer_id/subscriptions", @_);
+    }
+
+    method list_subscriptions {
+        my %args = @_;
+        my $cid = delete $args{customer_id};
+        return $self->_get("customers/$cid/subscriptions", @_);
     }
 
     method get_customer {
@@ -169,19 +113,44 @@ Customers: {
     }
 }
 
-=head2 Subscriptions
 
-All methods accept the same arguments as described in the API.
+Cards: {
+    method get_card {
+        my %args = @_;
+        my $cid = delete $args{customer_id};
+        my $card_id = delete $args{card_id};
+        return $self->_get("customers/$cid/cards/$card_id");
+    }
 
-See https://stripe.com/docs/api for full details.
+    method get_cards {
+        $self->_get_collections('cards', @_);
+    }
 
-=head3 post_subscription( PARAMHASH )
+    method post_card {
+        my %args = @_;
+        my $cid = delete $args{customer_id};
+        my $card = Net::Stripe::Card->new(%args);
+        return $self->_post("customers/$cid/cards", $card);
+    }
 
-=head3 get_subscription( customer_id => CUSTOMER_ID )
+    method update_card {
+      my %args = @_;
+      my $cid  = delete $args{customer_id};
+      my $card_id = delete $args{card_id};
+      return $self->_post("customers/$cid/cards/$card_id", \%args);
+    }
 
-=head3 delete_subscription( customer_id => CUSTOMER_ID )
+    method delete_card {
+      my %args = @_;
+      my $cid  = delete $args{customer_id};
+      my $card_id = delete $args{card_id};
+      return $self->_delete("customers/$cid/cards/$card_id");
+    }
+}
 
-=cut
+
+
+
 
 Subscriptions: {
     method get_subscription {
@@ -190,34 +159,31 @@ Subscriptions: {
         return $self->_get("customers/$cid/subscription");
     }
 
+    # adds a subscription, keeping any existing subscriptions unmodified
     method post_subscription {
         my %args = @_;
         my $cid = delete $args{customer_id};
         my $subs = Net::Stripe::Subscription->new(%args);
-        return $self->_post("customers/$cid/subscription", $subs);
+        return $self->_post("customers/$cid/subscriptions", $subs);
+    }
+    
+    method update_subscription {
+      my %args = @_;
+      my $cid  = delete $args{customer_id};
+      my $sid  = delete $args{subscription_id};
+      return $self->_post("customers/$cid/subscriptions/$sid", \%args);
     }
 
     method delete_subscription {
-        my %args = @_;
-        my $cid = delete $args{customer_id};
-        my $query = '';
-        $query .= '?at_period_end=true' if $args{at_period_end};
-        $self->_delete("customers/$cid/subscription$query");
+      my %args = @_;
+      my $cid  = delete $args{customer_id};
+      my $sid  = delete $args{subscription_id};
+      my $query = '';
+      $query .= '?at_period_end=true' if $args{at_period_end};
+      return $self->_delete("customers/$cid/subscriptions/$sid$query");
     }
-
 }
 
-=head2 Tokens
-
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 post_token( PARAMHASH )
-
-=head3 get_token( TOKEN_ID )
-
-=cut
 
 Tokens: {
     method post_token {
@@ -231,21 +197,6 @@ Tokens: {
     }
 }
 
-=head2 Plans
-
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 post_plan( PARAMHASH )
-
-=head3 get_plan( PLAN_ID )
-
-=head3 delete_plan( PLAN_ID )
-
-=head3 get_plans( PARAMHASH )
-
-=cut
 
 Plans: {
     method post_plan {
@@ -269,21 +220,6 @@ Plans: {
     }
 }
 
-=head2 Coupons
-
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 post_coupon( PARAMHASH )
-
-=head3 get_coupon( COUPON_ID )
-
-=head3 delete_coupon( COUPON_ID )
-
-=head3 get_coupons( PARAMHASH )
-
-=cut
 
 Coupons: {
     method post_coupon {
@@ -307,21 +243,13 @@ Coupons: {
     }
 }
 
-=head2 Invoices
-
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 get_invoice( COUPON_ID )
-
-=head3 get_upcominginvoice( COUPON_ID )
-
-=head3 get_invoices( PARAMHASH )
-
-=cut
 
 Invoices: {
+    method post_invoice {
+        my $i = shift;
+        return $self->_post("invoices/" . $i->id, $i);
+    }
+
     method get_invoice {
         my $id = shift || die 'get_invoice() requires an invoice id';
         return $self->_get("invoices/$id");
@@ -337,21 +265,6 @@ Invoices: {
     }
 }
 
-=head2 InvoiceItems
-
-All methods accept the same arguments as described in the API.
-
-See https://stripe.com/docs/api for full details.
-
-=head3 post_invoiceitem( PARAMHASH | OBJECT )
-
-=head3 get_invoiceitem( INVOICEITEM_ID )
-
-=head3 delete_invoiceitem( INVOICEITEM_ID )
-
-=head3 get_invoiceitems( PARAMHASH )
-
-=cut
 
 InvoiceItems: {
     method post_invoiceitem {
@@ -399,7 +312,7 @@ method _get_with_args {
     return $self->_get($path);
 }
 
-method _get_collections {
+method _get_collections { 
     my $path = shift;
     my %args = @_;
     my @path_args;
@@ -411,6 +324,16 @@ method _get_collections {
     }
     if (my $c = $args{customer}) {
         push @path_args, "customer=$c";
+    }
+    
+    # example: $Stripe->get_charges( 'count' => 100, 'created' => { 'gte' => 1397663381 } );
+    if (defined($args{created})) {
+      my %c = %{$args{created}};   
+      foreach my $key (keys %c) {
+        if ($key =~ /(?:l|g)te?/) {
+          push @path_args, "created[".$key."]=".$c{$key};
+        }
+      }        
     }
     return $self->_get_with_args($path, \@path_args);
 }
@@ -426,7 +349,7 @@ method _post {
     my $obj  = shift;
 
     my $req = POST $self->api_base . '/' . $path, 
-        ($obj ? (Content => [$obj->form_fields]) : ());
+        ($obj ? (Content => [ref($obj) eq 'HASH' ? %$obj : $obj->form_fields]) : ());
     return $self->_make_request($req);
 }
 
@@ -435,14 +358,36 @@ method _make_request {
     $req->header( Authorization => 
         "Basic " . encode_base64($self->api_key . ':'));
 
+    if ($self->debug_network) {
+        print STDERR "Sending to Stripe:\n------\n" . $req->as_string() . "------\n";
+
+    }
     my $resp = $self->ua->request($req);
+
+    if ($self->debug_network) {
+        print STDERR "Received from Stripe:\n------\n" . $resp->as_string()  . "------\n";
+    }
+
     if ($resp->code == 200) {
         my $hash = decode_json($resp->content);
+        if( $hash->{object} && 'list' eq $hash->{object} ) {
+          my @objects = ();
+          foreach my $object_data (@{$hash->{data}}) {
+            push @objects, hash_to_object($object_data);            
+          }
+          return \@objects;
+        }     
         return hash_to_object($hash) if $hash->{object};
         if (my $data = $hash->{data}) {
             return [ map { hash_to_object($_) } @$data ];
         }
         return $hash;
+    } elsif ($resp->code == 500) {
+        die Net::Stripe::Error->new(
+            type => "HTTP request error",
+            code => $resp->code,
+            message => $resp->status_line . " - " . $resp->content,
+        );
     }
 
     my $e = eval {
@@ -462,33 +407,77 @@ method _make_request {
 
 
 sub hash_to_object {
-    my $hash = shift;
-    my $class = 'Net::Stripe::' . ucfirst($hash->{object});
+    my $hash   = shift;
+    my @words  = map { ucfirst($_) } split('_', $hash->{object});
+    my $object = join('', @words);
+    my $class  = 'Net::Stripe::' . $object;
     return $class->new($hash);
 }
 
 method _build_api_base { 'https://api.stripe.com/v1' }
 
 method _build_ua {
-    my $ua = LWP::UserAgent->new;
+    my $ua = LWP::UserAgent->new();
     $ua->agent("Net::Stripe/$VERSION");
     return $ua;
 }
 
-=head1 SEE ALSO
-
-L<https://stripe.com>, L<https://stripe.com/docs/api>
-
-=head1 AUTHORS
-
-Luke Closs
-
-=head1 LICENSE
-
-Net-Stripe is Copyright 2011 Prime Radiant, Inc.
-Net-Stripe is distributed under the same terms as Perl itself.
-
-=cut
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+__END__
+
+=pod
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+Andrew Solomon <andrew@illywhacker.net>
+
+=item *
+
+Brian Collins <bricollins@gmail.com>
+
+=item *
+
+Devin M. Certas <devin@nacredata.com>
+
+=item *
+
+Dimitar Petrov <mitakaa@gmail.com>
+
+=item *
+
+Dylan Reinhold <dylan@gasdasoftware.com>
+
+=item *
+
+Jonathan "Duke" Leto <jonathan@leto.net>
+
+=item *
+
+Luke Closs <me@luk.ec>
+
+=item *
+
+Olaf Alders <olaf@wundersolutions.com>
+
+=item *
+
+Rusty Conover <rusty@luckydinosaur.com>
+
+=item *
+
+Sachin Sebastian <sachinjsk@users.noreply.github.com>
+
+=item *
+
+Tom Eliaz <tom@tomeliaz.com>
+
+=back
+
+=cut
