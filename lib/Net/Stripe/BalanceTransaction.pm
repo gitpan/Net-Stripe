@@ -39,7 +39,7 @@ Net::Stripe::BalanceTransaction - represent a BalanceTransaction object from Str
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHOR
 

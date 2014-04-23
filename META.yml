@@ -35,7 +35,7 @@ resources:
   bugtracker: https://github.com/lukec/stripe-perl/issues
   homepage: https://stripe.com/docs
   repository: git://github.com/lukec/stripe-perl.git
-version: '0.10'
+version: '0.11'
 x_contributors:
   - 'Andrew Solomon <andrew@illywhacker.net>'
   - 'Brian Collins <bricollins@gmail.com>'

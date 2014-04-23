@@ -43,7 +43,7 @@ Net::Stripe::Plan - represent a Plan object from Stripe
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHOR
 

@@ -32,7 +32,7 @@ Net::Stripe::Error - represent an error result from interacting with Stripe
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHOR
 

@@ -3,8 +3,20 @@ Changes from 2013-04-23 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.10 at 2014-04-23 01:08:48 +0000
+version 0.11 at 2014-04-23 01:15:41 +0000
 -----------------------------------------
+
+  Change: 5d49548425af494e7751062ecbca8d7192f74bd7
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-22 21:15:09 +0000
+
+    A few POD fixes and 0.11 release. 
+
+  Change: 1d57a2b75acc847a18136576a03b748451fd9714
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-22 21:10:26 +0000
+
+    Add README.pod which is generated from Dist::Zilla. 
 
   Change: 36a402bd11adb738473f34964264135ef5f0974c
   Author: Rusty Conover <rusty@luckydinosaur.com>

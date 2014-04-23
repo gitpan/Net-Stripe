@@ -442,7 +442,7 @@ Net::Stripe - API client for Stripe.com
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 
@@ -477,6 +477,8 @@ This method returns Moose objects for responses from the API.
 
 This creates a new stripe api object.  The following parameters are accepted:
 
+=over
+
 =item api_key
 
 This is required. You get this from your Stripe Account settings.
@@ -488,6 +490,8 @@ You can set this to true to see extra debug info.
 =item debug_network
 
 You can set this to true to see the actual network requests.
+
+=back
 
 =head1 Charge Methods
 
@@ -576,10 +580,6 @@ You can set this to true to see the actual network requests.
 =head2 delete_invoiceitem( INVOICEITEM_ID )
 
 =head2 get_invoiceitems( PARAMHASH )
-
-=head1 METHODS
-
-=head2 API Object
 
 =head1 SEE ALSO
 

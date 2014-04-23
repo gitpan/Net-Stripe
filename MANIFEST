@@ -6,7 +6,6 @@ MANIFEST
 META.yml
 Makefile.PL
 README
-README.creole
 dist.ini
 dist.ini~
 inc/Module/Install.pm
