@@ -1,6 +1,6 @@
 package Net::Stripe::Invoiceitem;
 use Moose;
-use methods;
+use MooseX::Method::Signatures;
 extends 'Net::Stripe::Resource';
 with 'MooseX::Clone';
 
@@ -37,7 +37,7 @@ Net::Stripe::Invoiceitem - represent an Invoice Item object from Stripe
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 AUTHOR
 

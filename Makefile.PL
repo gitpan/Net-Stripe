@@ -28,9 +28,9 @@ my %WriteMakefileArgs = (
     "Moose" => 0,
     "Moose::Util::TypeConstraints" => 0,
     "MooseX::Clone" => 0,
+    "MooseX::Method::Signatures" => 0,
     "Throwable" => 0,
     "URI::Escape" => 0,
-    "methods" => 0,
     "namespace::clean" => 0,
     "overload" => 0
   },
@@ -42,7 +42,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.11",
+  "VERSION" => "0.12",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -59,11 +59,11 @@ my %FallbackPrereqs = (
   "Moose" => 0,
   "Moose::Util::TypeConstraints" => 0,
   "MooseX::Clone" => 0,
+  "MooseX::Method::Signatures" => 0,
   "Test::Exception" => 0,
   "Test::More" => 0,
   "Throwable" => 0,
   "URI::Escape" => 0,
-  "methods" => 0,
   "namespace::clean" => 0,
   "overload" => 0,
   "strict" => 0,

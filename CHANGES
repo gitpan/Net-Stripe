@@ -1,10 +1,22 @@
 ==================================================
-Changes from 2013-04-23 00:00:00 +0000 to present.
+Changes from 2013-04-25 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.11 at 2014-04-23 01:15:41 +0000
+version 0.12 at 2014-04-25 04:47:24 +0000
 -----------------------------------------
+
+  Change: 9c6dd9331807054bd2ee47be8dd541ae60723738
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 00:46:16 +0000
+
+    Remove use of methods module, replace with
+    MooseX::Method::Signatures.
+
+    Fixes a problem with methods module prereqs on some platforms while
+    retaining all functionality.
+
+    Bump version 
 
   Change: 5d49548425af494e7751062ecbca8d7192f74bd7
   Author: Rusty Conover <rusty@luckydinosaur.com>

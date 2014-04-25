@@ -1,6 +1,6 @@
 package Net::Stripe::Resource;
 use Moose;
-use methods;
+use MooseX::Method::Signatures;
 
 around BUILDARGS => sub {
     my $orig = shift;
@@ -63,8 +63,7 @@ method form_fields_for_metadata {
     return @metadata;
 }
 
-method fields_for {
-    my $for = shift;
+method fields_for($for) {
     return unless $self->can($for);
     my $thingy = $self->$for;
     return unless $thingy;
@@ -84,7 +83,7 @@ Net::Stripe::Resource
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 AUTHOR
 

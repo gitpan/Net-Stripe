@@ -26,16 +26,16 @@ requires:
   Moose: '0'
   Moose::Util::TypeConstraints: '0'
   MooseX::Clone: '0'
+  MooseX::Method::Signatures: '0'
   Throwable: '0'
   URI::Escape: '0'
-  methods: '0'
   namespace::clean: '0'
   overload: '0'
 resources:
   bugtracker: https://github.com/lukec/stripe-perl/issues
   homepage: https://stripe.com/docs
   repository: git://github.com/lukec/stripe-perl.git
-version: '0.11'
+version: '0.12'
 x_contributors:
   - 'Andrew Solomon <andrew@illywhacker.net>'
   - 'Brian Collins <bricollins@gmail.com>'
