@@ -13,10 +13,11 @@ has 'currency'          => (is => 'rw', isa => 'Maybe[Str]', required => 1, clea
 has 'description'       => (is => 'rw', isa => 'Maybe[Str]');
 has 'date'              => (is => 'ro', isa => 'Maybe[Int]');
 has 'invoice'           => (is => 'ro', isa => 'Maybe[Str]');
-
+has 'metadata'          => (is => 'rw', isa => 'Maybe[HashRef]');
 
 method form_fields {
     return (
+        $self->form_fields_for_metadata(),
         map { $_ => $self->$_ }
             grep { defined $self->$_ }
                 qw/amount currency description invoice/,
@@ -37,15 +38,25 @@ Net::Stripe::Invoiceitem - represent an Invoice Item object from Stripe
 
 =head1 VERSION
 
-version 0.12
+version 0.13
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Luke Closs
 
+=item *
+
+Rusty Conover
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Copyright 2011, Prime Radiant, Inc..
+This software is copyright (c) 2011 by Prime Radiant, Inc., (c) copyright 2014 Lucky Dinosaur LLC..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

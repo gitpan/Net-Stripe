@@ -13,7 +13,7 @@ has 'card'        => (is => 'rw', isa => 'Maybe[StripeCard]');
 has 'plan'        => (is => 'rw', isa => 'Maybe[StripePlan|Str]');
 has 'coupon'      => (is => 'rw', isa => 'Maybe[StripeCoupon]');
 has 'discount'    => (is => 'rw', isa => 'Maybe[Net::Stripe::Discount]');
-has 'metadata'    => (is => 'rw', isa => 'HashRef');
+has 'metadata'    => (is => 'rw', isa => 'Maybe[HashRef]');
 
 # API object args
 has 'id'           => (is => 'ro', isa => 'Maybe[Str]');
@@ -59,15 +59,25 @@ Net::Stripe::Customer - represent a Customer object from Stripe
 
 =head1 VERSION
 
-version 0.12
+version 0.13
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Luke Closs
 
+=item *
+
+Rusty Conover
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Copyright 2011, Prime Radiant, Inc..
+This software is copyright (c) 2011 by Prime Radiant, Inc., (c) copyright 2014 Lucky Dinosaur LLC..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,10 +1,56 @@
 ==================================================
-Changes from 2013-04-25 00:00:00 +0000 to present.
+Changes from 2013-04-26 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.12 at 2014-04-25 04:47:24 +0000
+version 0.13 at 2014-04-26 02:38:14 +0000
 -----------------------------------------
+
+  Change: 89f8ca48009ff0b364f8ec18a9e875c251652ec6
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 22:28:56 +0000
+
+    More example and documentation fixes 
+
+  Change: c30780c0e51cb67aea3f906e4288ac3454299833
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 22:25:28 +0000
+
+    Add more examples and fix up POD documentation 
+
+  Change: 5eb0aa11865360ff408a360f515df73b794339ac
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 18:36:50 +0000
+
+    Add more examples 
+
+  Change: c2310e92cc4fcc79488b6b7f9c01dae619c80302
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 18:25:01 +0000
+
+    Add some initial examples of calling functions 
+
+  Change: 80d6a93d7241eb80cca49e4b3dfdca977f83cb91
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 18:19:51 +0000
+
+    Fix pod weaver bug with balance transaction functions. 
+
+  Change: 296f14fea3d5ba746fd84bf4769f51b3055babfe
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 18:13:42 +0000
+
+    Bump version number 
+
+  Change: f8092e06daddfc453d3719ab3407e9af05709b81
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-25 18:11:55 +0000
+
+    Change all methods to use named parameters and proper signatures.
+
+    Add documentation to all methods.
+
+    Change tests as appropriate to match the new method signatures. 
 
   Change: 9c6dd9331807054bd2ee47be8dd541ae60723738
   Author: Rusty Conover <rusty@luckydinosaur.com>

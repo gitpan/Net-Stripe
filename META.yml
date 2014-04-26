@@ -2,6 +2,7 @@
 abstract: 'API client for Stripe.com'
 author:
   - 'Luke Closs'
+  - 'Rusty Conover'
 build_requires:
   DateTime: '0'
   DateTime::Duration: '0'
@@ -35,7 +36,7 @@ resources:
   bugtracker: https://github.com/lukec/stripe-perl/issues
   homepage: https://stripe.com/docs
   repository: git://github.com/lukec/stripe-perl.git
-version: '0.12'
+version: '0.13'
 x_contributors:
   - 'Andrew Solomon <andrew@illywhacker.net>'
   - 'Brian Collins <bricollins@gmail.com>'

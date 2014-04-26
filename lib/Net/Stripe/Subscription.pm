@@ -10,7 +10,7 @@ has 'plan' => (is => 'rw', isa => 'Maybe[StripePlan]');
 has 'coupon'    => (is => 'rw', isa => 'Maybe[StripeCoupon]');
 has 'prorate'   => (is => 'rw', isa => 'Maybe[Bool|Object]');
 has 'card'      => (is => 'rw', isa => 'Maybe[StripeCard]');
-has 'quantity'  => (is => 'rw', isa => 'Int', default => 1);
+has 'quantity'  => (is => 'rw', isa => 'Maybe[Int]', default => 1);
 
 # Other fields returned by the API
 has 'customer'             => (is => 'ro', isa => 'Maybe[Str]');
@@ -46,15 +46,25 @@ Net::Stripe::Subscription - represent a Subscription object from Stripe
 
 =head1 VERSION
 
-version 0.12
+version 0.13
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Luke Closs
 
+=item *
+
+Rusty Conover
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Copyright 2011, Prime Radiant, Inc..
+This software is copyright (c) 2011 by Prime Radiant, Inc., (c) copyright 2014 Lucky Dinosaur LLC..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
