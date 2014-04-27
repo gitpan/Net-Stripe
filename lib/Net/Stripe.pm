@@ -16,21 +16,21 @@ use Net::Stripe::Charge;
 use Net::Stripe::Customer;
 use Net::Stripe::Discount;
 use Net::Stripe::Subscription;
-use Net::Stripe::SubscriptionList;
 use Net::Stripe::Error;
 use Net::Stripe::BalanceTransaction;
+use Net::Stripe::List;
+use Net::Stripe::LineItem;
 
 our $VERSION = '0.09';
 
 # ABSTRACT: API client for Stripe.com
 
 
-has 'debug'         => (is => 'rw', isa => 'Bool',   default    => 0);
-has 'debug_network' => (is => 'rw', isa => 'Bool',   default    => 0);
-has 'api_key'       => (is => 'ro', isa => 'Str',    required   => 1);
-has 'api_base'      => (is => 'ro', isa => 'Str',    lazy_build => 1);
-has 'ua'            => (is => 'ro', isa => 'Object', lazy_build => 1);
-
+has 'debug'         => (is => 'rw', isa => 'Bool',   default    => 0, documentation => "The debug flag");
+has 'debug_network' => (is => 'rw', isa => 'Bool',   default    => 0, documentation => "The debug network request flag");
+has 'api_key'       => (is => 'ro', isa => 'Str',    required   => 1, documentation => "You get this from your Stripe Account settings");
+has 'api_base'      => (is => 'ro', isa => 'Str',    lazy_build => 1, documentation => "This is the base part of the URL for every request made");
+has 'ua'            => (is => 'ro', isa => 'Object', lazy_build => 1, documentation => "The LWP::UserAgent that is used for requests");
 
 
 Charges: {
@@ -600,19 +600,7 @@ method _make_request($req) {
     }
 
     if ($resp->code == 200) {
-        my $hash = decode_json($resp->content);
-        if( $hash->{object} && 'list' eq $hash->{object} ) {
-          my @objects = ();
-          foreach my $object_data (@{$hash->{data}}) {
-            push @objects, hash_to_object($object_data);            
-          }
-          return \@objects;
-        }     
-        return hash_to_object($hash) if $hash->{object};
-        if (my $data = $hash->{data}) {
-            return [ map { hash_to_object($_) } @$data ];
-        }
-        return $hash;
+        return _hash_to_object(decode_json($resp->content));
     } elsif ($resp->code == 500) {
         die Net::Stripe::Error->new(
             type => "HTTP request error",
@@ -637,12 +625,29 @@ method _make_request($req) {
 }
 
 
-sub hash_to_object {
+sub _hash_to_object {
     my $hash   = shift;
-    my @words  = map { ucfirst($_) } split('_', $hash->{object});
-    my $object = join('', @words);
-    my $class  = 'Net::Stripe::' . $object;
-    return $class->new($hash);
+
+    foreach my $k (grep { ref($hash->{$_}) } keys %$hash) {
+        my $v = $hash->{$k};
+        if (ref($v) eq 'HASH' && defined($v->{object})) {
+            $hash->{$k} = _hash_to_object($v);
+        } elsif (ref($v) =~ /^(JSON::XS::Boolean|JSON::PP::Boolean)$/) {
+            $hash->{$k} = $v ? 1 : 0;
+        }
+    }
+
+    if (defined($hash->{object})) {
+        if ($hash->{object} eq 'list') {
+            $hash->{data} = [map { _hash_to_object($_) } @{$hash->{data}}];        
+            return Net::Stripe::List->new($hash);
+        }
+        my @words  = map { ucfirst($_) } split('_', $hash->{object});
+        my $object = join('', @words);
+        my $class  = 'Net::Stripe::' . $object;
+        return $class->new($hash);
+    }
+    return $hash;
 }
 
 method _build_api_base { 'https://api.stripe.com/v1' }
@@ -667,7 +672,7 @@ Net::Stripe - API client for Stripe.com
 
 =head1 VERSION
 
-version 0.13
+version 0.14
 
 =head1 SYNOPSIS
 
@@ -717,6 +722,50 @@ You can set this to true to see extra debug info.
 You can set this to true to see the actual network requests.
 
 =back
+
+=head1 ATTRIBUTES
+
+=head2 api_base
+
+Reader: api_base
+
+Type: Str
+
+=head2 api_key
+
+Reader: api_key
+
+Type: Str
+
+This attribute is required.
+
+=head2 debug
+
+Reader: debug
+
+Writer: debug
+
+Type: Bool
+
+Additional documentation: The debug flag
+
+=head2 debug_network
+
+Reader: debug_network
+
+Writer: debug_network
+
+Type: Bool
+
+Additional documentation: The debug network request flag
+
+=head2 ua
+
+Reader: ua
+
+Type: Object
+
+Additional documentation: The LWP::UserAgent that is used for requests
 
 =head1 Balance Transaction Methods
 
@@ -806,7 +855,7 @@ Returns a new L<Net::Stripe::Charge>.
 
 =head2 get_charges
 
-Return a list of charges based on criteria.
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Charge> objects.
 
 L<https://stripe.com/docs/api#list_charges>
 
@@ -900,7 +949,7 @@ L<https://stripe.com/docs/api#retrieve_customer>
 
 =back
 
-Returns a L<Net::Stripe::Customer> object
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Customer> objects.
 
   $stripe->get_customer(customer_id => $id);
 
@@ -938,7 +987,7 @@ L<https://stripe.com/docs/api#list_customers>
 
 =back
 
-Returns a list of L<Net::Stripe::Customer> objects.
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Customer> objects.
 
   $stripe->get_customers(limit => 7);
 
@@ -998,7 +1047,7 @@ L<https://stripe.com/docs/api#list_cards>
 
 =back
 
-Returns a list of L<Net::Stripe::Card> objects
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Card> objects.
 
   $stripe->list_cards(customer => 'abcdec', limit => 10);
 
@@ -1206,7 +1255,7 @@ L<https://stripe.com/docs/api#list_plans>
 
 =back
 
-Returns a list of L<Net::Stripe::Plan>
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Plan> objects.
 
   $stripe->get_plans(limit => 10);
 
@@ -1294,7 +1343,7 @@ Returns a L<Net::Stripe::Coupon>
 
 =back
 
-Returns a list of L<Net::Stripe::Coupon>
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Coupon> objects.
 
   $stripe->get_coupons(limit => 15);
 
@@ -1354,7 +1403,7 @@ L<https://stripe.com/docs/api#list_customer_invoices>
 
 =back
 
-Returns a list of L<Net::Stripe::Invoices>
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Invoice> objects.
 
   $stripe->get_invoices(limit => 10);
 
@@ -1502,7 +1551,7 @@ Returns a L<Net::Stripe::Invoiceitem>
 
 =back
 
-Returns a list of L<Net::Stripe::Invoiceitem> objects
+Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Invoiceitem> objects.
 
   $stripe->get_invoiceitems(customer => 'test', limit => 30);
 

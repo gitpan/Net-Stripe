@@ -10,7 +10,7 @@ has 'created'             => (is => 'ro', isa => 'Maybe[Int]');
 has 'amount'              => (is => 'ro', isa => 'Maybe[Int]', required => 1);
 has 'currency'            => (is => 'ro', isa => 'Maybe[Str]', required => 1);
 has 'customer'            => (is => 'ro', isa => 'Maybe[Str]');
-has 'card'                => (is => 'ro', isa => 'Maybe[StripeCard]');
+has 'card'                => (is => 'ro', isa => 'Maybe[Net::Stripe::Token|Net::Stripe::Card|Str]');
 has 'description'         => (is => 'ro', isa => 'Maybe[Str]');
 has 'livemode'            => (is => 'ro', isa => 'Maybe[Bool|Object]');
 has 'paid'                => (is => 'ro', isa => 'Maybe[Bool|Object]');
@@ -44,7 +44,103 @@ Net::Stripe::Charge - represent an Charge object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 amount
+
+Reader: amount
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 amount_refunded
+
+Reader: amount_refunded
+
+Type: Maybe[Int]
+
+=head2 balance_transaction
+
+Reader: balance_transaction
+
+Type: Maybe[Str]
+
+=head2 captured
+
+Reader: captured
+
+Type: Maybe[Bool|Object]
+
+=head2 card
+
+Reader: card
+
+Type: Maybe[Net::Stripe::Card|Net::Stripe::Token|Str]
+
+=head2 created
+
+Reader: created
+
+Type: Maybe[Int]
+
+=head2 currency
+
+Reader: currency
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 customer
+
+Reader: customer
+
+Type: Maybe[Str]
+
+=head2 description
+
+Reader: description
+
+Type: Maybe[Str]
+
+=head2 failure_code
+
+Reader: failure_code
+
+Type: Maybe[Str]
+
+=head2 failure_message
+
+Reader: failure_message
+
+Type: Maybe[Str]
+
+=head2 id
+
+Reader: id
+
+Type: Maybe[Str]
+
+=head2 livemode
+
+Reader: livemode
+
+Type: Maybe[Bool|Object]
+
+=head2 paid
+
+Reader: paid
+
+Type: Maybe[Bool|Object]
+
+=head2 refunded
+
+Reader: refunded
+
+Type: Maybe[Bool|Object]
 
 =head1 AUTHORS
 

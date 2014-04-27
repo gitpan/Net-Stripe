@@ -21,7 +21,17 @@ Net::Stripe::Discount - represent a Discount object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 coupon
+
+Reader: coupon
+
+Writer: coupon
+
+Type: Maybe[Net::Stripe::Coupon]
 
 =head1 AUTHORS
 

@@ -32,7 +32,41 @@ Net::Stripe::Error - represent an error result from interacting with Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 code
+
+Reader: code
+
+Type: Maybe[Str]
+
+=head2 message
+
+Reader: message
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 param
+
+Reader: param
+
+Type: Maybe[Str]
+
+=head2 previous_exception
+
+Reader: previous_exception
+
+=head2 type
+
+Reader: type
+
+Type: Maybe[Str]
+
+This attribute is required.
 
 =head1 AUTHORS
 

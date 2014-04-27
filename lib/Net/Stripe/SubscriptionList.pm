@@ -25,7 +25,33 @@ Net::Stripe::SubscriptionList - represent a list of Subscriptions from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 count
+
+Reader: count
+
+Type: Int
+
+=head2 data
+
+Reader: data
+
+Type: ArrayRef[Net::Stripe::Subscription]
+
+=head2 object
+
+Reader: object
+
+Type: Str
+
+=head2 url
+
+Reader: url
+
+Type: Str
 
 =head1 AUTHORS
 

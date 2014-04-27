@@ -6,8 +6,6 @@ extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a Coupon object from Stripe
 
-union 'StripeCoupon', ['Str', 'Net::Stripe::Coupon'];
-
 has 'id'                 => (is => 'rw', isa => 'Maybe[Str]');
 has 'percent_off'        => (is => 'rw', isa => 'Maybe[Int]', required => 1);
 has 'duration'           => (is => 'rw', isa => 'Maybe[Str]', required => 1);
@@ -37,7 +35,61 @@ Net::Stripe::Coupon - represent a Coupon object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 duration
+
+Reader: duration
+
+Writer: duration
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 duration_in_months
+
+Reader: duration_in_months
+
+Writer: duration_in_months
+
+Type: Maybe[Int]
+
+=head2 id
+
+Reader: id
+
+Writer: id
+
+Type: Maybe[Str]
+
+=head2 max_redemptions
+
+Reader: max_redemptions
+
+Writer: max_redemptions
+
+Type: Maybe[Int]
+
+=head2 percent_off
+
+Reader: percent_off
+
+Writer: percent_off
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 redeem_by
+
+Reader: redeem_by
+
+Writer: redeem_by
+
+Type: Maybe[Int]
 
 =head1 AUTHORS
 

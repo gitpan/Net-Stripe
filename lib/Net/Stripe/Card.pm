@@ -2,10 +2,9 @@ package Net::Stripe::Card;
 use Moose;
 use Moose::Util::TypeConstraints qw(union);
 use MooseX::Method::Signatures;
+use Net::Stripe::Token;
 
 # ABSTRACT: represent a Card object from Stripe
-
-union 'StripeCard', ['Str', 'Net::Stripe::Card', 'Net::Stripe::Token'];
 
 # Input fields
 has 'number'          => (is => 'ro', isa => 'Maybe[Str]');
@@ -52,7 +51,115 @@ Net::Stripe::Card - represent a Card object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 address_country
+
+Reader: address_country
+
+Type: Maybe[Str]
+
+=head2 address_line1
+
+Reader: address_line1
+
+Type: Maybe[Str]
+
+=head2 address_line2
+
+Reader: address_line2
+
+Type: Maybe[Str]
+
+=head2 address_line_1_check
+
+Reader: address_line_1_check
+
+Type: Maybe[Str]
+
+=head2 address_state
+
+Reader: address_state
+
+Type: Maybe[Str]
+
+=head2 address_zip
+
+Reader: address_zip
+
+Type: Maybe[Str]
+
+=head2 address_zip_check
+
+Reader: address_zip_check
+
+Type: Maybe[Str]
+
+=head2 country
+
+Reader: country
+
+Type: Maybe[Str]
+
+=head2 cvc
+
+Reader: cvc
+
+Type: Maybe[Int]
+
+=head2 cvc_check
+
+Reader: cvc_check
+
+Type: Maybe[Str]
+
+=head2 exp_month
+
+Reader: exp_month
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 exp_year
+
+Reader: exp_year
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 fingerprint
+
+Reader: fingerprint
+
+Type: Maybe[Str]
+
+=head2 last4
+
+Reader: last4
+
+Type: Maybe[Str]
+
+=head2 name
+
+Reader: name
+
+Type: Maybe[Str]
+
+=head2 number
+
+Reader: number
+
+Type: Maybe[Str]
+
+=head2 type
+
+Reader: type
+
+Type: Maybe[Str]
 
 =head1 AUTHORS
 

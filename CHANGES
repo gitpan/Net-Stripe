@@ -1,10 +1,73 @@
 ==================================================
-Changes from 2013-04-26 00:00:00 +0000 to present.
+Changes from 2013-04-27 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.13 at 2014-04-26 02:38:14 +0000
+version 0.14 at 2014-04-27 03:25:14 +0000
 -----------------------------------------
+
+  Change: 739412308f32119442636f383963f487c0c3e058
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 23:24:51 +0000
+
+    Bump version to 0.14 
+
+  Change: f0095fd94abab5b03269447f0d1aa2679f7a9589
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 19:14:18 +0000
+
+    More docs on attributes 
+
+  Change: e79ee64373938bd3fc487e82219495c7acb025cc
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 19:08:17 +0000
+
+    Add some boolean type checking to hash_to_object. 
+
+  Change: ac4b97380a5f10ee201f6ac571e85b37d8256877
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 18:46:23 +0000
+
+    Add ClassMopper to weaver.ini for documentation of our objects. 
+
+  Change: 8bf02e492f08cb4e9fade4c9ba1534deec826e3d
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 18:08:31 +0000
+
+    Remove some Moose subtypes and just specify the allowed objects. 
+
+  Change: 75befc30001710fa4a24ddb596dc18d0a380e8fd
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 17:48:50 +0000
+
+    Remove unnecessary use of Data::Dumper 
+
+  Change: e07052a53b72d4c637f40b86c8cc96882da591b9
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 17:46:46 +0000
+
+    Add Net::Stripe::List for correct and proper list handling.
+
+    Add Net::Stripe::LineItem to contain information about line items
+    from an invoice. 
+
+  Change: 99ffd3eaec8c05eca01c4e374eef92199d14e50e
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 12:09:42 +0000
+
+    POD changes 
+
+  Change: 17a0e3d1cb812df5d5ac5339fa86965cb763478c
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-26 11:42:28 +0000
+
+    Change list handling to use Net::Stripe::List.
+
+    Add Net::Stripe::List to handle all returned lists from Stripe. Adds
+    suppor for the has_more flag, so the user can page through results.
+
+    Change live.t to use new list structure. Remove
+    Net::Stripe::SubscriptionList. 
 
   Change: 89f8ca48009ff0b364f8ec18a9e875c251652ec6
   Author: Rusty Conover <rusty@luckydinosaur.com>

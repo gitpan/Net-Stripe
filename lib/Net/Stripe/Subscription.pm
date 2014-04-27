@@ -6,10 +6,10 @@ extends 'Net::Stripe::Resource';
 # ABSTRACT: represent a Subscription object from Stripe
 
 has 'id' => (is => 'ro', isa => 'Maybe[Str]');
-has 'plan' => (is => 'rw', isa => 'Maybe[StripePlan]');
-has 'coupon'    => (is => 'rw', isa => 'Maybe[StripeCoupon]');
+has 'plan' => (is => 'rw', isa => 'Maybe[Net::Stripe::Plan|Str]');
+has 'coupon'    => (is => 'rw', isa => 'Maybe[Net::Stripe::Coupon|Str]');
 has 'prorate'   => (is => 'rw', isa => 'Maybe[Bool|Object]');
-has 'card'      => (is => 'rw', isa => 'Maybe[StripeCard]');
+has 'card'      => (is => 'rw', isa => 'Maybe[Net::Stripe::Token|Net::Stripe::Card|Str]');
 has 'quantity'  => (is => 'rw', isa => 'Maybe[Int]', default => 1);
 
 # Other fields returned by the API
@@ -46,7 +46,111 @@ Net::Stripe::Subscription - represent a Subscription object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 canceled_at
+
+Reader: canceled_at
+
+Type: Maybe[Int]
+
+=head2 card
+
+Reader: card
+
+Writer: card
+
+Type: Maybe[Net::Stripe::Card|Net::Stripe::Token|Str]
+
+=head2 coupon
+
+Reader: coupon
+
+Writer: coupon
+
+Type: Maybe[Net::Stripe::Coupon|Str]
+
+=head2 current_period_end
+
+Reader: current_period_end
+
+Type: Maybe[Int]
+
+=head2 current_period_start
+
+Reader: current_period_start
+
+Type: Maybe[Int]
+
+=head2 customer
+
+Reader: customer
+
+Type: Maybe[Str]
+
+=head2 ended_at
+
+Reader: ended_at
+
+Type: Maybe[Int]
+
+=head2 id
+
+Reader: id
+
+Type: Maybe[Str]
+
+=head2 plan
+
+Reader: plan
+
+Writer: plan
+
+Type: Maybe[Net::Stripe::Plan|Str]
+
+=head2 prorate
+
+Reader: prorate
+
+Writer: prorate
+
+Type: Maybe[Bool|Object]
+
+=head2 quantity
+
+Reader: quantity
+
+Writer: quantity
+
+Type: Maybe[Int]
+
+=head2 start
+
+Reader: start
+
+Type: Maybe[Int]
+
+=head2 status
+
+Reader: status
+
+Type: Maybe[Str]
+
+=head2 trial_end
+
+Reader: trial_end
+
+Writer: trial_end
+
+Type: Maybe[Int|Str]
+
+=head2 trial_start
+
+Reader: trial_start
+
+Type: Maybe[Str]
 
 =head1 AUTHORS
 

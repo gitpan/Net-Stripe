@@ -38,7 +38,53 @@ Net::Stripe::Token - represent a Token object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 amount
+
+Reader: amount
+
+Type: Maybe[Int]
+
+=head2 card
+
+Reader: card
+
+Type: Maybe[Net::Stripe::Card]
+
+This attribute is required.
+
+=head2 created
+
+Reader: created
+
+Type: Maybe[Int]
+
+=head2 currency
+
+Reader: currency
+
+Type: Maybe[Str]
+
+=head2 id
+
+Reader: id
+
+Type: Maybe[Str]
+
+=head2 livemode
+
+Reader: livemode
+
+Type: Maybe[Bool|Object]
+
+=head2 used
+
+Reader: used
+
+Type: Maybe[Bool|Object]
 
 =head1 AUTHORS
 

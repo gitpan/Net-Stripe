@@ -20,15 +20,6 @@ around BUILDARGS => sub {
         $args{$f} = Net::Stripe::Card->new($args{$f});
     }
 
-    if (my $s = $args{subscriptions}) {
-        if (ref($s) eq 'HASH') {
-            if (defined($s->{data}) && ref($s->{data}) eq 'ARRAY') {
-                $s->{data} = [map { Net::Stripe::Subscription->new($_) } @{$s->{data}}];
-            }
-            $args{subscriptions} = Net::Stripe::SubscriptionList->new($s);
-        }
-    }
-
     if (my $s = $args{subscription}) {
         if (ref($s) eq 'HASH') {
             $args{subscription} = Net::Stripe::Subscription->new($s);
@@ -83,7 +74,7 @@ Net::Stripe::Resource
 
 =head1 VERSION
 
-version 0.13
+version 0.14
 
 =head1 AUTHORS
 

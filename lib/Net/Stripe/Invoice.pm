@@ -14,7 +14,7 @@ has 'attempted'     => ( is => 'ro', isa => 'Maybe[Bool|Object]', required => 1 
 has 'closed'        => ( is => 'ro', isa => 'Maybe[Bool|Object]', required => 1, trigger => \&_closed_change_detector);
 has 'customer'      => ( is => 'ro', isa => 'Maybe[Str]', required => 1 );
 has 'date'          => ( is => 'ro', isa => 'Maybe[Str]', required => 1 );
-has 'lines'         => ( is => 'ro', isa => 'ArrayRef[Object]', required => 1 );
+has 'lines'         => ( is => 'ro', isa => 'Net::Stripe::List', required => 1 );
 has 'paid'          => ( is => 'ro', isa => 'Maybe[Bool|Object]', required => 1 );
 has 'period_end'    => ( is => 'ro', isa => 'Maybe[Int]' );
 has 'period_start'  => ( is => 'ro', isa => 'Maybe[Int]' );
@@ -26,11 +26,6 @@ has 'ending_balance'   => ( is => 'ro', isa => 'Maybe[Int]' );
 has 'next_payment_attempt' => ( is => 'ro', isa => 'Maybe[Int]' );
 has 'metadata'         => ( is => 'rw', isa => 'HashRef');
 has 'description' => (is => 'rw', isa => 'Maybe[Str]');
-
-has 'invoiceitems' =>
-    (is => 'ro', isa => 'ArrayRef[Net::Stripe::Invoiceitem]');
-has 'subscriptions' =>
-    (is => 'ro', isa => 'ArrayRef[Net::Stripe::Subscription]');
 
 sub _closed_change_detector {
     my ($instance, $new_value, $orig_value) = @_;
@@ -52,50 +47,6 @@ method form_fields {
     );
 }
 
-
-around BUILDARGS => sub {
-    my $orig = shift;
-    my $class = shift;
-    my %args = @_ == 1 ? %{ $_[0] } : @_;
-
-
-    my (@lines, @items, @subs);
-    # Old style?
-    for my $i (@{ $args{lines}{invoiceitems} || [] }) {
-        my $item = Net::Stripe::Invoiceitem->new($i);
-        push @lines, $item;
-        push @items, $item;
-    }
-    for my $s (@{ $args{lines}{subscriptions} || [] }) {
-        my $sub = Net::Stripe::Subscription->new($s);
-        push @lines, $sub;
-        push @subs, $sub;
-    }
-
-    # New style?
-    if ($args{lines}{object} eq 'list') {
-        for my $line (@{ $args{lines}{data} }) {
-            if ($line->{type} eq 'invoiceitem') {
-                $line->{customer} = $args{customer};
-                my $item = Net::Stripe::Invoiceitem->new($line);
-                push @lines, $item;
-                push @items, $item;
-            }
-            elsif ($line->{type} eq 'subscription') {
-                my $sub = Net::Stripe::Subscription->new($line);
-                push @lines, $sub;
-                push @subs, $sub;
-            }
-        }
-    }
-
-
-    $args{subscriptions} = \@subs;
-    $args{invoiceitems}  = \@items;
-    $args{lines} = \@lines;
-    $class->$orig(%args);
-};
-
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -109,7 +60,151 @@ Net::Stripe::Invoice - represent an Invoice object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 amount_due
+
+Reader: amount_due
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 attempt_count
+
+Reader: attempt_count
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 attempted
+
+Reader: attempted
+
+Type: Maybe[Bool|Object]
+
+This attribute is required.
+
+=head2 charge
+
+Reader: charge
+
+Type: Maybe[Str]
+
+=head2 closed
+
+Reader: closed
+
+Type: Maybe[Bool|Object]
+
+This attribute is required.
+
+=head2 created
+
+Reader: created
+
+Type: Maybe[Int]
+
+=head2 customer
+
+Reader: customer
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 date
+
+Reader: date
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 description
+
+Reader: description
+
+Writer: description
+
+Type: Maybe[Str]
+
+=head2 ending_balance
+
+Reader: ending_balance
+
+Type: Maybe[Int]
+
+=head2 id
+
+Reader: id
+
+Type: Maybe[Str]
+
+=head2 lines
+
+Reader: lines
+
+Type: Net::Stripe::List
+
+This attribute is required.
+
+=head2 metadata
+
+Reader: metadata
+
+Writer: metadata
+
+Type: HashRef
+
+=head2 next_payment_attempt
+
+Reader: next_payment_attempt
+
+Type: Maybe[Int]
+
+=head2 paid
+
+Reader: paid
+
+Type: Maybe[Bool|Object]
+
+This attribute is required.
+
+=head2 period_end
+
+Reader: period_end
+
+Type: Maybe[Int]
+
+=head2 period_start
+
+Reader: period_start
+
+Type: Maybe[Int]
+
+=head2 starting_balance
+
+Reader: starting_balance
+
+Type: Maybe[Int]
+
+=head2 subtotal
+
+Reader: subtotal
+
+Type: Maybe[Int]
+
+=head2 total
+
+Reader: total
+
+Type: Maybe[Int]
+
+This attribute is required.
 
 =head1 AUTHORS
 

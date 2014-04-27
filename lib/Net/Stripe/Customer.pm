@@ -1,6 +1,11 @@
 package Net::Stripe::Customer;
 use Moose;
 use MooseX::Method::Signatures;
+use Net::Stripe::Plan;
+use Net::Stripe::Token;
+use Net::Stripe::Card;
+use Net::Stripe::Discount;
+use Net::Stripe::List;
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a Customer object from Stripe
@@ -9,30 +14,25 @@ extends 'Net::Stripe::Resource';
 has 'email'       => (is => 'rw', isa => 'Maybe[Str]');
 has 'description' => (is => 'rw', isa => 'Maybe[Str]');
 has 'trial_end'   => (is => 'rw', isa => 'Maybe[Int|Str]');
-has 'card'        => (is => 'rw', isa => 'Maybe[StripeCard]');
-has 'plan'        => (is => 'rw', isa => 'Maybe[StripePlan|Str]');
-has 'coupon'      => (is => 'rw', isa => 'Maybe[StripeCoupon]');
+has 'card'        => (is => 'rw', isa => 'Maybe[Net::Stripe::Token|Net::Stripe::Card|Str]');
+has 'plan'        => (is => 'rw', isa => 'Maybe[Net::Stripe::Plan|Str]');
+has 'coupon'      => (is => 'rw', isa => 'Maybe[Net::Stripe::Coupon|Str]');
 has 'discount'    => (is => 'rw', isa => 'Maybe[Net::Stripe::Discount]');
 has 'metadata'    => (is => 'rw', isa => 'Maybe[HashRef]');
 
 # API object args
 has 'id'           => (is => 'ro', isa => 'Maybe[Str]');
 has 'deleted'      => (is => 'ro', isa => 'Maybe[Bool|Object]', default => 0);
-has 'default_card' => (is => 'ro', isa => 'Maybe[StripeCard]');
-has 'subscriptions' => (is => 'ro', isa => 'Net::Stripe::SubscriptionList');
+has 'default_card' => (is => 'ro', isa => 'Maybe[Net::Stripe::Token|Net::Stripe::Card|Str]');
+has 'subscriptions' => (is => 'ro', isa => 'Net::Stripe::List');
 has 'subscription' => (is => 'ro',
                        lazy => 1,
                        builder => '_build_subscription');
 
 sub _build_subscription {
     my $self = shift;
-    if (scalar(@{$self->subscriptions->data}) > 0) {
-        return $self->subscriptions->data->[0];
-    }
-    return;
+    return $self->subscriptions->get(0);
 }
-
-#has 'subscription' => (is => 'ro', isa => 'Maybe[Net::Stripe::Subscription]');
 
 method form_fields {
     return (
@@ -59,7 +59,101 @@ Net::Stripe::Customer - represent a Customer object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 card
+
+Reader: card
+
+Writer: card
+
+Type: Maybe[Net::Stripe::Card|Net::Stripe::Token|Str]
+
+=head2 coupon
+
+Reader: coupon
+
+Writer: coupon
+
+Type: Maybe[Net::Stripe::Coupon|Str]
+
+=head2 default_card
+
+Reader: default_card
+
+Type: Maybe[Net::Stripe::Card|Net::Stripe::Token|Str]
+
+=head2 deleted
+
+Reader: deleted
+
+Type: Maybe[Bool|Object]
+
+=head2 description
+
+Reader: description
+
+Writer: description
+
+Type: Maybe[Str]
+
+=head2 discount
+
+Reader: discount
+
+Writer: discount
+
+Type: Maybe[Net::Stripe::Discount]
+
+=head2 email
+
+Reader: email
+
+Writer: email
+
+Type: Maybe[Str]
+
+=head2 id
+
+Reader: id
+
+Type: Maybe[Str]
+
+=head2 metadata
+
+Reader: metadata
+
+Writer: metadata
+
+Type: Maybe[HashRef]
+
+=head2 plan
+
+Reader: plan
+
+Writer: plan
+
+Type: Maybe[Net::Stripe::Plan|Str]
+
+=head2 subscription
+
+Reader: subscription
+
+=head2 subscriptions
+
+Reader: subscriptions
+
+Type: Net::Stripe::List
+
+=head2 trial_end
+
+Reader: trial_end
+
+Writer: trial_end
+
+Type: Maybe[Int|Str]
 
 =head1 AUTHORS
 

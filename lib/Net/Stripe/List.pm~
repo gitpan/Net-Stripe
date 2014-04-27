@@ -1,0 +1,3 @@
+package Net::Stripe::List;
+use Moose;
+use MooseX::Method::Signatures;

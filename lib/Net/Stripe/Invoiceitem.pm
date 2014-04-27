@@ -38,7 +38,71 @@ Net::Stripe::Invoiceitem - represent an Invoice Item object from Stripe
 
 =head1 VERSION
 
-version 0.13
+version 0.14
+
+=head1 ATTRIBUTES
+
+=head2 amount
+
+Reader: amount
+
+Writer: amount
+
+Type: Maybe[Int]
+
+This attribute is required.
+
+=head2 currency
+
+Reader: currency
+
+Writer: currency
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 customer
+
+Reader: customer
+
+Type: Maybe[Str]
+
+This attribute is required.
+
+=head2 date
+
+Reader: date
+
+Type: Maybe[Int]
+
+=head2 description
+
+Reader: description
+
+Writer: description
+
+Type: Maybe[Str]
+
+=head2 id
+
+Reader: id
+
+Type: Maybe[Str]
+
+=head2 invoice
+
+Reader: invoice
+
+Type: Maybe[Str]
+
+=head2 metadata
+
+Reader: metadata
+
+Writer: metadata
+
+Type: Maybe[HashRef]
 
 =head1 AUTHORS
 
