@@ -1,10 +1,33 @@
 ==================================================
-Changes from 2013-04-27 00:00:00 +0000 to present.
+Changes from 2013-05-11 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.14 at 2014-04-27 03:25:14 +0000
+version 0.15 at 2014-05-11 15:53:24 +0000
 -----------------------------------------
+
+  Change: 95edaa21f9025c84145a51e98c0075507f9e89a1
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-05-11 11:53:09 +0000
+
+    Bump version to 0.15.
+
+    Add keep alive to user agent. 
+
+  Change: 95c2d6051bfca97a472f638eac0cdf896e2a4754
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-04-27 20:02:34 +0000
+
+    Fixes and cleanups.
+
+    Add default card parameter to post_customer().
+
+    Fix _post to handle objects being included in argument, convert them
+    to form fields if they are nested inside of a posted argument hash.
+
+    Add id to the Card object.
+
+    Add cards to the Customer object as a Net::Stripe::List. 
 
   Change: 739412308f32119442636f383963f487c0c3e058
   Author: Rusty Conover <rusty@luckydinosaur.com>

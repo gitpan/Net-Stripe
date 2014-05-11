@@ -21,6 +21,7 @@ has 'exp_month'       => (is => 'ro', isa => 'Maybe[Int]', required => 1);
 has 'exp_year'        => (is => 'ro', isa => 'Maybe[Int]', required => 1);
 
 # Output fields
+has 'id'                   => (is => 'ro', isa => 'Maybe[Str]');
 has 'address_line_1_check' => (is => 'ro', isa => 'Maybe[Str]');
 has 'address_zip_check'    => (is => 'ro', isa => 'Maybe[Str]');
 has 'country'              => (is => 'ro', isa => 'Maybe[Str]');
@@ -51,7 +52,7 @@ Net::Stripe::Card - represent a Card object from Stripe
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 ATTRIBUTES
 
@@ -134,6 +135,12 @@ This attribute is required.
 =head2 fingerprint
 
 Reader: fingerprint
+
+Type: Maybe[Str]
+
+=head2 id
+
+Reader: id
 
 Type: Maybe[Str]
 

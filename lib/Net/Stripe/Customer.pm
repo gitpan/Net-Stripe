@@ -19,6 +19,7 @@ has 'plan'        => (is => 'rw', isa => 'Maybe[Net::Stripe::Plan|Str]');
 has 'coupon'      => (is => 'rw', isa => 'Maybe[Net::Stripe::Coupon|Str]');
 has 'discount'    => (is => 'rw', isa => 'Maybe[Net::Stripe::Discount]');
 has 'metadata'    => (is => 'rw', isa => 'Maybe[HashRef]');
+has 'cards'       => (is => 'ro', isa => 'Net::Stripe::List');
 
 # API object args
 has 'id'           => (is => 'ro', isa => 'Maybe[Str]');
@@ -59,7 +60,7 @@ Net::Stripe::Customer - represent a Customer object from Stripe
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 ATTRIBUTES
 
@@ -70,6 +71,12 @@ Reader: card
 Writer: card
 
 Type: Maybe[Net::Stripe::Card|Net::Stripe::Token|Str]
+
+=head2 cards
+
+Reader: cards
+
+Type: Net::Stripe::List
 
 =head2 coupon
 

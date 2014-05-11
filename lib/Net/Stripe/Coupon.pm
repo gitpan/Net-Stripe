@@ -35,7 +35,7 @@ Net::Stripe::Coupon - represent a Coupon object from Stripe
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 ATTRIBUTES
 
