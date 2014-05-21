@@ -1,6 +1,6 @@
 package Net::Stripe::Resource;
 use Moose;
-use MooseX::Method::Signatures;
+use Kavorka;
 
 around BUILDARGS => sub {
     my $orig = shift;
@@ -74,7 +74,7 @@ Net::Stripe::Resource
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 AUTHORS
 

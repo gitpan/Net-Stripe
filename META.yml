@@ -22,12 +22,12 @@ name: Net-Stripe
 requires:
   HTTP::Request::Common: '0'
   JSON: '0'
+  Kavorka: '0'
   LWP::UserAgent: '0'
   MIME::Base64: '0'
   Moose: '0'
   Moose::Util::TypeConstraints: '0'
   MooseX::Clone: '0'
-  MooseX::Method::Signatures: '0'
   Throwable: '0'
   URI::Escape: '0'
   namespace::clean: '0'
@@ -36,7 +36,7 @@ resources:
   bugtracker: https://github.com/lukec/stripe-perl/issues
   homepage: https://stripe.com/docs
   repository: git://github.com/lukec/stripe-perl.git
-version: '0.15'
+version: '0.16'
 x_contributors:
   - 'Andrew Solomon <andrew@illywhacker.net>'
   - 'Brian Collins <bricollins@gmail.com>'

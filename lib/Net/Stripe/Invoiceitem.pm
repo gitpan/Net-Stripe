@@ -1,6 +1,6 @@
 package Net::Stripe::Invoiceitem;
 use Moose;
-use MooseX::Method::Signatures;
+use Kavorka;
 extends 'Net::Stripe::Resource';
 with 'MooseX::Clone';
 
@@ -38,7 +38,7 @@ Net::Stripe::Invoiceitem - represent an Invoice Item object from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

@@ -1,6 +1,6 @@
 package Net::Stripe::Customer;
 use Moose;
-use MooseX::Method::Signatures;
+use Kavorka;
 use Net::Stripe::Plan;
 use Net::Stripe::Token;
 use Net::Stripe::Card;
@@ -60,7 +60,7 @@ Net::Stripe::Customer - represent a Customer object from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

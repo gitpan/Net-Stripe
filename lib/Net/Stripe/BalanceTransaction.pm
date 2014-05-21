@@ -1,7 +1,6 @@
 package Net::Stripe::BalanceTransaction;
 use Moose;
 use Moose::Util::TypeConstraints qw(subtype as where message);
-use MooseX::Method::Signatures;
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a BalanceTransaction object from Stripe
@@ -42,7 +41,7 @@ Net::Stripe::BalanceTransaction - represent a BalanceTransaction object from Str
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

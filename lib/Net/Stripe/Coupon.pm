@@ -1,7 +1,7 @@
 package Net::Stripe::Coupon;
 use Moose;
 use Moose::Util::TypeConstraints;
-use MooseX::Method::Signatures;
+use Kavorka;
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a Coupon object from Stripe
@@ -35,7 +35,7 @@ Net::Stripe::Coupon - represent a Coupon object from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

@@ -1,6 +1,6 @@
 package Net::Stripe::List;
 use Moose;
-use MooseX::Method::Signatures;
+use Kavorka;
 
 # ABSTRACT: represent a list of objects from Stripe
 
@@ -39,7 +39,7 @@ Net::Stripe::List - represent a list of objects from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

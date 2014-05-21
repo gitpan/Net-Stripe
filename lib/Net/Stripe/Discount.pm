@@ -1,7 +1,7 @@
 package Net::Stripe::Discount;
 use Moose;
 use Moose::Util::TypeConstraints;
-use MooseX::Method::Signatures;
+use Kavorka;
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a Discount object from Stripe
@@ -21,7 +21,7 @@ Net::Stripe::Discount - represent a Discount object from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

@@ -1,6 +1,6 @@
 package Net::Stripe::Token;
 use Moose;
-use MooseX::Method::Signatures;
+use Kavorka;
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a Token object from Stripe
@@ -38,7 +38,7 @@ Net::Stripe::Token - represent a Token object from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 

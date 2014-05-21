@@ -33,6 +33,7 @@ lib/Net/Stripe/Plan.pm
 lib/Net/Stripe/Resource.pm
 lib/Net/Stripe/Subscription.pm
 lib/Net/Stripe/SubscriptionList.pm
+lib/Net/Stripe/SubscriptionList.pm~
 lib/Net/Stripe/Token.pm
 t/live.t
 t/local.t

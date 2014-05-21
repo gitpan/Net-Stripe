@@ -1,6 +1,6 @@
 package Net::Stripe::Invoice;
 use Moose;
-use MooseX::Method::Signatures;
+use Kavorka;
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent an Invoice object from Stripe
@@ -60,7 +60,7 @@ Net::Stripe::Invoice - represent an Invoice object from Stripe
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 ATTRIBUTES
 
