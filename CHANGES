@@ -1,10 +1,31 @@
 ==================================================
-Changes from 2013-05-21 00:00:00 +0000 to present.
+Changes from 2013-05-29 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.16 at 2014-05-21 19:49:49 +0000
+version 0.17 at 2014-05-29 15:42:51 +0000
 -----------------------------------------
+
+  Change: deaf5d4da578a7b052a1bb0fd5881e390fd4ea8a
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-05-29 11:40:11 +0000
+
+    Bump to version 0.17 start using PkgVersion plugin 
+
+  Change: a6ab0dd81f63639e8f2a64a8b4c0126b83d5ab78
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-05-29 11:30:27 +0000
+
+    Add documentation of pay_invoice. 
+
+  Change: c081f4218fffe1de5e34bb2124bed2e426f7f874
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-05-26 19:54:38 +0000
+
+    Add pay_invoice and allow new card with post_card.
+
+    Add new pay_invoice method, and fix a bug with post_card not
+    recognizing a new credit card rather than an update. 
 
   Change: 240790ef93bd38c16a32bacf238393904d19e51e
   Author: Rusty Conover <rusty@luckydinosaur.com>

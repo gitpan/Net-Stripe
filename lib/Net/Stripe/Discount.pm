@@ -1,4 +1,5 @@
 package Net::Stripe::Discount;
+$Net::Stripe::Discount::VERSION = '0.17';
 use Moose;
 use Moose::Util::TypeConstraints;
 use Kavorka;
@@ -21,7 +22,7 @@ Net::Stripe::Discount - represent a Discount object from Stripe
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 ATTRIBUTES
 
