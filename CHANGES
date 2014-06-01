@@ -1,10 +1,25 @@
 ==================================================
-Changes from 2013-05-29 00:00:00 +0000 to present.
+Changes from 2013-06-01 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.17 at 2014-05-29 15:42:51 +0000
+version 0.18 at 2014-06-01 16:21:59 +0000
 -----------------------------------------
+
+  Change: 78868ad306fb9f4473ab6286574c939d81a53595
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-06-01 12:21:23 +0000
+
+    Allow trial_end to be both an integer and a string. Support trials
+    ending "now".
+
+    Bump to 0.18 
+
+  Change: cb4cccbeeeb84c95661afb405df94fbdd6c25a54
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-05-29 11:43:07 +0000
+
+    Change version string in access log 
 
   Change: deaf5d4da578a7b052a1bb0fd5881e390fd4ea8a
   Author: Rusty Conover <rusty@luckydinosaur.com>

@@ -1,5 +1,5 @@
 package Net::Stripe::SubscriptionList;
-$Net::Stripe::SubscriptionList::VERSION = '0.17';
+$Net::Stripe::SubscriptionList::VERSION = '0.18';
 use Moose;
 use Kavorka;
 extends 'Net::Stripe::Resource';
@@ -26,7 +26,7 @@ Net::Stripe::SubscriptionList - represent a list of Subscriptions from Stripe
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =head1 ATTRIBUTES
 
