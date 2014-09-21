@@ -1,5 +1,5 @@
 package Net::Stripe;
-$Net::Stripe::VERSION = '0.18';
+$Net::Stripe::VERSION = '0.19';
 use Moose;
 use Kavorka;
 use LWP::UserAgent;
@@ -155,7 +155,7 @@ Customers: {
         if (ref($customer)) {
             $customer = $customer->id;
         }
-        return $self->_get("customers/$customer/subscriptions", 
+        return $self->_get_collections("customers/$customer/subscriptions", 
                            ending_before => $ending_before,
                            limit => $limit,
                            starting_after => $starting_after
@@ -712,7 +712,7 @@ Net::Stripe - API client for Stripe.com
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =head1 SYNOPSIS
 
@@ -1631,11 +1631,17 @@ Rusty Conover
 
 =head1 CONTRIBUTORS
 
+=for stopwords Andrew Solomon Tom Eliaz Brian Collins Devin M. Certas Dimitar Petrov Dylan Reinhold Jonathan "Duke" Leto Luke Closs Olaf Alders Rusty Conover Sachin Sebastian
+
 =over 4
 
 =item *
 
 Andrew Solomon <andrew@illywhacker.net>
+
+=item *
+
+Tom Eliaz <tom@tomeliaz.com>
 
 =item *
 
@@ -1672,10 +1678,6 @@ Rusty Conover <rusty@luckydinosaur.com>
 =item *
 
 Sachin Sebastian <sachinjsk@users.noreply.github.com>
-
-=item *
-
-Tom Eliaz <tom@tomeliaz.com>
 
 =back
 

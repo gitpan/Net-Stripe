@@ -1,5 +1,5 @@
 package Net::Stripe::Discount;
-$Net::Stripe::Discount::VERSION = '0.18';
+$Net::Stripe::Discount::VERSION = '0.19';
 use Moose;
 use Moose::Util::TypeConstraints;
 use Kavorka;
@@ -8,6 +8,7 @@ extends 'Net::Stripe::Resource';
 # ABSTRACT: represent a Discount object from Stripe
 
 has 'coupon' => (is => 'rw', isa => 'Maybe[Net::Stripe::Coupon]');
+has 'start' => (is => 'rw', isa => 'Maybe[Int]');
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -22,7 +23,7 @@ Net::Stripe::Discount - represent a Discount object from Stripe
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =head1 ATTRIBUTES
 

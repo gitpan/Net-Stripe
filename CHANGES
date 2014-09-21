@@ -1,10 +1,53 @@
 ==================================================
-Changes from 2013-06-01 00:00:00 +0000 to present.
+Changes from 2013-09-21 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.18 at 2014-06-01 16:21:59 +0000
+version 0.19 at 2014-09-21 01:20:05 +0000
 -----------------------------------------
+
+  Change: 26d4fa699a74977c06041c7196c1f821361ca53d
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-09-20 21:19:54 +0000
+
+    Release 0.19 
+
+  Change: 5b103edcbb95b99c52da532dad4eb574a87817f0
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-08-10 16:13:55 +0000
+
+    Merge pull request #37 from andrewsolomon/master
+
+    Provide access to customer->discount->start 
+
+  Change: 2d0e4af85dcd66d62ac3cb731be63a0f5c948ab5
+  Author: Andrew Solomon <andrew@illywhacker.net>
+  Date : 2014-08-10 18:29:41 +0000
+
+    Provide access to customer->discount->start 
+
+  Change: d963e45be808ac0a67f6a95d49b2712dfb6c56ca
+  Author: Devin Ceartas <devin@nacredata.com>
+  Date : 2014-06-25 14:13:25 +0000
+
+    Merge pull request #34 from NacreData/master
+
+    Fix list_subscriptions method, add tests for list_subscriptions 
+
+  Change: 17bd35f831b32fbeaa0acc4a206b8f35165390ca
+  Author: Devin M. Ceartas <devin@nacredata.com>
+  Date : 2014-06-25 10:10:01 +0000
+
+    Fix list_subscriptions method, add tests for list_subscriptions 
+
+  Change: 716a38645cd4cb8bcd73c4d0425d412dc9ab6604
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-06-01 12:22:56 +0000
+
+    Merge pull request #31 from rustyconover/master
+
+    Allow trial_end to be both an integer and a string. Support trials
+    ending now. Release 0.18. 
 
   Change: 78868ad306fb9f4473ab6286574c939d81a53595
   Author: Rusty Conover <rusty@luckydinosaur.com>
@@ -14,6 +57,14 @@ version 0.18 at 2014-06-01 16:21:59 +0000
     ending "now".
 
     Bump to 0.18 
+
+  Change: 4d691c1f27e3527e6c8357b6adf3fe3b8c7dff55
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-05-29 11:44:16 +0000
+
+    Merge pull request #29 from rustyconover/master
+
+    Version 0.17 
 
   Change: cb4cccbeeeb84c95661afb405df94fbdd6c25a54
   Author: Rusty Conover <rusty@luckydinosaur.com>
@@ -41,6 +92,14 @@ version 0.18 at 2014-06-01 16:21:59 +0000
 
     Add new pay_invoice method, and fix a bug with post_card not
     recognizing a new credit card rather than an update. 
+
+  Change: 43de0ec4f312b0708c5e2d42ee62f9ed3ee9a143
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-05-21 15:50:34 +0000
+
+    Merge pull request #27 from rustyconover/master
+
+    Version 0.16 
 
   Change: 240790ef93bd38c16a32bacf238393904d19e51e
   Author: Rusty Conover <rusty@luckydinosaur.com>
@@ -76,6 +135,15 @@ version 0.18 at 2014-06-01 16:21:59 +0000
     Add id to the Card object.
 
     Add cards to the Customer object as a Net::Stripe::List. 
+
+  Change: 773c89f1afe19441adee43557358576506d660c9
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-04-26 23:26:44 +0000
+
+    Merge pull request #25 from rustyconover/master
+
+    Change to Net::Stripe::List for all lists. Add documentation to
+    object classes. 
 
   Change: 739412308f32119442636f383963f487c0c3e058
   Author: Rusty Conover <rusty@luckydinosaur.com>
@@ -139,6 +207,34 @@ version 0.18 at 2014-06-01 16:21:59 +0000
 
     Change live.t to use new list structure. Remove
     Net::Stripe::SubscriptionList. 
+
+  Change: 24a5c2516b0bad5ad828df17a9f69a3b23ad6f06
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-04-25 22:37:59 +0000
+
+    Merge pull request #24 from rustyconover/master
+
+    Add documentation, change to named parameters to all functions,
+    update tests and add example code.
+
+    Changed all functions to use named parameters to follow the Stripe
+    API. This will break some existing code that relied on positional
+    parameters. See the documentation for changes and new examples of
+    calling functions. One example get_invoice() you now must pass
+    get_invoice(invoice_id => $id) where you previously called
+    get_invoice($id). I think named parameters allow more flexibility and
+    expressiveness.
+
+    Added documentation of each function along with an example call of
+    that function to the POD documentation.
+
+    Described all method's accepted parameters and types.
+
+    Changed to using MooseX::Method::Signatures rather than method module
+    to remove some older dependencies and add better type checking to
+    parameters.
+
+    Reworked live.t to reflect the API changes. 
 
   Change: 89f8ca48009ff0b364f8ec18a9e875c251652ec6
   Author: Rusty Conover <rusty@luckydinosaur.com>

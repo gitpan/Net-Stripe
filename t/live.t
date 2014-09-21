@@ -338,7 +338,7 @@ Customers: {
             );
             is $customer->subscription->plan->id, $freeplan->id,
                 'customer has freeplan';
-
+                
             # Now update subscription of an existing customer
             my $other = $stripe->post_customer();
             my $subs = $stripe->post_subscription(
@@ -392,11 +392,16 @@ Customers: {
             isa_ok $coupon, 'Net::Stripe::Coupon',
                 'I love it when a coupon pays for the first month';
             is $coupon->id, $coupon_id, 'coupon id is the same';
+            my $coupon_assign_epoch = time;
             $customer->coupon($coupon->id);
             $stripe->post_customer(customer => $customer);
             $customer = $stripe->get_customer(customer_id => $customer->id);
             is $customer->discount->coupon->id, $coupon_id,
               'got the coupon';
+            ok $coupon_assign_epoch - 10 <= $customer->discount->start,
+              'discount started on or after coupon assignment (give or take 10 seconds)';
+            ok $customer->discount->start <= time + 10,
+              'discount has started (give or take 10 seconds)';
             my $priceysubs = $stripe->post_subscription(
                 customer => $customer->id,
                 plan => $priceyplan->id,
@@ -407,6 +412,18 @@ Customers: {
             $customer = $stripe->get_customer(customer_id => $customer->id);
             is $customer->subscriptions->get(0)->plan->id,
               $priceyplan->id, 'subscribed without a creditcard';
+
+            # Test ability to add, retrieve lists of subscriptions, since we can now have > 1
+            my $subs_list = $stripe->list_subscriptions(customer => $customer);
+            isa_ok $subs_list, 'Net::Stripe::List', 'Subscription List object returned';
+            is scalar @{$subs_list->data}, 1, 'Customer has one subscription';
+            
+            $subs = $stripe->post_subscription(
+                customer => $customer->id,
+                plan => $freeplan->id,
+            );
+            $subs_list = $stripe->list_subscriptions(customer => $customer);
+            is scalar @{$subs_list->data}, 2, 'Customer now has two subscriptions';
         }
     }
 }
