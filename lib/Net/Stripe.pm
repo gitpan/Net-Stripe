@@ -1,5 +1,5 @@
 package Net::Stripe;
-$Net::Stripe::VERSION = '0.19';
+$Net::Stripe::VERSION = '0.20';
 use Moose;
 use Kavorka;
 use LWP::UserAgent;
@@ -398,6 +398,16 @@ Coupons: {
 }
 
 
+Discounts: {
+    method delete_customer_discount(Net::Stripe::Customer|Str :$customer) {
+        if (ref($customer)) {
+            $customer = $customer->id;
+        }
+        $self->_delete("customers/$customer/discount");
+    }
+}
+
+
 
 Invoices: {
 
@@ -712,7 +722,7 @@ Net::Stripe - API client for Stripe.com
 
 =head1 VERSION
 
-version 0.19
+version 0.20
 
 =head1 SYNOPSIS
 
@@ -1610,6 +1620,26 @@ Returns a L<Net::Stripe::Invoiceitem>
 Returns a L<Net::Stripe::List> object containing L<Net::Stripe::Invoiceitem> objects.
 
   $stripe->get_invoiceitems(customer => 'test', limit => 30);
+
+=discount_method delete_customer_discount
+
+Deleting a Customer-wide Discount
+
+L<https://stripe.com/docs/api/curl#delete_discount>
+
+=over
+
+=item * customer - L<Net::Stripe::Customer> or Str - the customer with a discount to delete
+
+=back
+
+  $stripe->delete_customer_discount(customer => $customer);
+
+returns hashref of the form
+
+  {
+    deleted => <bool>
+  }
 
 =head1 SEE ALSO
 

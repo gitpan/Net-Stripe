@@ -1,16 +1,44 @@
 ==================================================
-Changes from 2013-09-21 00:00:00 +0000 to present.
+Changes from 2013-09-25 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.19 at 2014-09-21 01:20:05 +0000
+version 0.20 at 2014-09-25 23:16:43 +0000
 -----------------------------------------
+
+  Change: 003909470184ce13b787c67a70875dd0b2d52693
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-09-25 19:15:45 +0000
+
+    Release 0.20
+
+    Deleting a customer wide discount from andrewsolomon 
+
+  Change: ad777bd2428db4d5b732cc4c9605136dbef07299
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-09-25 19:14:49 +0000
+
+    Merge branch 'master' of github.com:lukec/stripe-perl 
+
+  Change: 81ecbc5f17e2db1ee4698568d36f85752177cba8
+  Author: Rusty Conover <rustyconover@users.noreply.github.com>
+  Date : 2014-09-25 19:02:10 +0000
+
+    Merge pull request #40 from andrewsolomon/master
+
+    Deleting a Customer-wide Discount 
 
   Change: 26d4fa699a74977c06041c7196c1f821361ca53d
   Author: Rusty Conover <rusty@luckydinosaur.com>
   Date : 2014-09-20 21:19:54 +0000
 
     Release 0.19 
+
+  Change: 2fc58fcfa6880ad4d6b3b482daef4100c7b14524
+  Author: Andrew Solomon <andrew@illywhacker.net>
+  Date : 2014-09-13 17:04:23 +0000
+
+    Deleting a Customer-wide Discount 
 
   Change: 5b103edcbb95b99c52da532dad4eb574a87817f0
   Author: Rusty Conover <rustyconover@users.noreply.github.com>
