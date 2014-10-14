@@ -1,5 +1,5 @@
 package Net::Stripe::Charge;
-$Net::Stripe::Charge::VERSION = '0.20';
+$Net::Stripe::Charge::VERSION = '0.22';
 use Moose;
 use Kavorka;
 extends 'Net::Stripe::Resource';
@@ -21,14 +21,14 @@ has 'captured'            => (is => 'ro', isa => 'Maybe[Bool|Object]');
 has 'balance_transaction' => (is => 'ro', isa => 'Maybe[Str]');
 has 'failure_message'     => (is => 'ro', isa => 'Maybe[Str]');
 has 'failure_code'        => (is => 'ro', isa => 'Maybe[Str]');
-
+has 'application_fee'     => (is => 'ro', isa => 'Maybe[Int]');
 
 method form_fields {
     return (
         $self->fields_for('card'),
         map { $_ => $self->$_ }
             grep { defined $self->$_ }
-                qw/amount currency customer description/
+                qw/amount currency customer description application_fee/
     );
 }
 
@@ -45,7 +45,7 @@ Net::Stripe::Charge - represent an Charge object from Stripe
 
 =head1 VERSION
 
-version 0.20
+version 0.22
 
 =head1 ATTRIBUTES
 
@@ -60,6 +60,12 @@ This attribute is required.
 =head2 amount_refunded
 
 Reader: amount_refunded
+
+Type: Maybe[Int]
+
+=head2 application_fee
+
+Reader: application_fee
 
 Type: Maybe[Int]
 

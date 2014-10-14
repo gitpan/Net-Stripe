@@ -1,10 +1,40 @@
 ==================================================
-Changes from 2013-09-25 00:00:00 +0000 to present.
+Changes from 2013-10-14 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.20 at 2014-09-25 23:16:43 +0000
+version 0.22 at 2014-10-14 03:37:10 +0000
 -----------------------------------------
+
+  Change: 62bb29cae76c879f35f33ca0edf59621f74a4e26
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-10-13 23:36:45 +0000
+
+    Release 0.22
+
+    application_fee was being passed to the Charge object from Stripe.pm,
+    but there was no corresponding parameter defined, so it wasn't
+    actually getting passed on in the request - Devin Ceartas 
+
+  Change: 15d19490ea0fbb776623570d82ae822c6ee10a26
+  Author: Rusty Conover <rusty@luckydinosaur.com>
+  Date : 2014-10-13 23:32:29 +0000
+
+    Merge branch 'master' of github.com:lukec/stripe-perl 
+
+  Change: 3049dd9cf9420e6278d1a164b9a012cd2282cb2c
+  Author: Devin Ceartas <devin@nacredata.com>
+  Date : 2014-10-14 03:31:47 +0000
+
+    Merge pull request #41 from NacreData/master
+
+    application_fee in Net::Stripe::Charge for Stripe Connect to work 
+
+  Change: 76164b2c422d5adfb0d25c5954fec40a5d4564b8
+  Author: Devin M. Ceartas <devin@nacredata.com>
+  Date : 2014-10-13 23:27:54 +0000
+
+    application_fee in Net::Stripe::Charge for Stripe Connect to work 
 
   Change: 003909470184ce13b787c67a70875dd0b2d52693
   Author: Rusty Conover <rusty@luckydinosaur.com>
