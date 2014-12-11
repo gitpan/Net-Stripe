@@ -1,5 +1,5 @@
 package Net::Stripe;
-$Net::Stripe::VERSION = '0.23';
+$Net::Stripe::VERSION = '0.24';
 use Moose;
 use Kavorka;
 use LWP::UserAgent;
@@ -724,7 +724,7 @@ Net::Stripe - API client for Stripe.com
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Net::Stripe::Subscription;
-$Net::Stripe::Subscription::VERSION = '0.23';
+$Net::Stripe::Subscription::VERSION = '0.24';
 use Moose;
 use Kavorka;
 use Net::Stripe::Token;
@@ -29,6 +29,7 @@ has 'current_period_start' => (is => 'ro', isa => 'Maybe[Int]');
 has 'current_period_end'   => (is => 'ro', isa => 'Maybe[Int]');
 has 'trial_start'          => (is => 'ro', isa => 'Maybe[Str]');
 has 'trial_end'            => (is => 'rw', isa => 'Maybe[Str|Int]');
+has 'cancel_at_period_end' => (is => 'rw', isa => 'Maybe[Bool]');
 
 
 method form_fields {
@@ -53,9 +54,17 @@ Net::Stripe::Subscription - represent a Subscription object from Stripe
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 ATTRIBUTES
+
+=head2 cancel_at_period_end
+
+Reader: cancel_at_period_end
+
+Writer: cancel_at_period_end
+
+Type: Maybe[Bool]
 
 =head2 canceled_at
 

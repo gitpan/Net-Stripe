@@ -1,5 +1,5 @@
 package Net::Stripe::Token;
-$Net::Stripe::Token::VERSION = '0.23';
+$Net::Stripe::Token::VERSION = '0.24';
 use Moose;
 use Kavorka;
 extends 'Net::Stripe::Resource';
@@ -39,7 +39,7 @@ Net::Stripe::Token - represent a Token object from Stripe
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 ATTRIBUTES
 

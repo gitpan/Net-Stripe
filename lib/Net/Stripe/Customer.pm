@@ -1,5 +1,5 @@
 package Net::Stripe::Customer;
-$Net::Stripe::Customer::VERSION = '0.23';
+$Net::Stripe::Customer::VERSION = '0.24';
 use Moose;
 use Kavorka;
 use Net::Stripe::Plan;
@@ -64,7 +64,7 @@ Net::Stripe::Customer - represent a Customer object from Stripe
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 ATTRIBUTES
 
