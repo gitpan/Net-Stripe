@@ -1,5 +1,5 @@
 package Net::Stripe::Resource;
-$Net::Stripe::Resource::VERSION = '0.22';
+$Net::Stripe::Resource::VERSION = '0.23';
 use Moose;
 use Kavorka;
 
@@ -75,7 +75,7 @@ Net::Stripe::Resource
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 AUTHORS
 

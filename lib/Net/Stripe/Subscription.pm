@@ -1,7 +1,13 @@
 package Net::Stripe::Subscription;
-$Net::Stripe::Subscription::VERSION = '0.22';
+$Net::Stripe::Subscription::VERSION = '0.23';
 use Moose;
 use Kavorka;
+use Net::Stripe::Token;
+use Net::Stripe::Card;
+use Net::Stripe::Plan;
+use Net::Stripe::Coupon;
+
+
 extends 'Net::Stripe::Resource';
 
 # ABSTRACT: represent a Subscription object from Stripe
@@ -47,7 +53,7 @@ Net::Stripe::Subscription - represent a Subscription object from Stripe
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 ATTRIBUTES
 

@@ -1,5 +1,5 @@
 package Net::Stripe;
-$Net::Stripe::VERSION = '0.22';
+$Net::Stripe::VERSION = '0.23';
 use Moose;
 use Kavorka;
 use LWP::UserAgent;
@@ -257,8 +257,9 @@ Subscriptions: {
                              Str :$coupon?,
                              Int|Str :$trial_end?,
                              Net::Stripe::Card|Net::Stripe::Token|Str|HashRef :$card?,
-                             Int :$quantity?,
-                             Num :$application_fee_percent?
+                             Int :$quantity? where { $_ >= 0 },
+                             Num :$application_fee_percent?,
+                             Bool :$prorate? = 1
                          ) {
         if (ref($customer)) {
             $customer = $customer->id;
@@ -272,6 +273,7 @@ Subscriptions: {
                     coupon => $coupon,
                     trial_end => $trial_end,
                     card => $card,
+                    prorate => $prorate ? 'true' : 'false',
                     quantity => $quantity,
                     application_fee_percent => $application_fee_percent);
 
@@ -722,7 +724,7 @@ Net::Stripe - API client for Stripe.com
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 SYNOPSIS
 
@@ -1150,6 +1152,8 @@ L<https://stripe.com/docs/api#create_subscription>
 =item * trial_end - Int, or Str optional
 
 =item * application_fee_percent - Int, optional
+
+=item * prorate - Bool, optional
 
 =back
 
