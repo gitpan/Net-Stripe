@@ -1,5 +1,5 @@
 package Net::Stripe::Invoiceitem;
-$Net::Stripe::Invoiceitem::VERSION = '0.24';
+$Net::Stripe::Invoiceitem::VERSION = '0.25';
 use Moose;
 use Kavorka;
 extends 'Net::Stripe::Resource';
@@ -39,7 +39,7 @@ Net::Stripe::Invoiceitem - represent an Invoice Item object from Stripe
 
 =head1 VERSION
 
-version 0.24
+version 0.25
 
 =head1 ATTRIBUTES
 
